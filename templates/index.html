@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}CopperSide{% endblock %}
+
+{% block content %}
+
+<style>
+    .sidebar{
+        display:flex;
+    }
+    .subheadings{
+        display: flex;
+    }
+</style>
+    <section id="welcome">
+        <!-- <h1>CopperSide</span></h1> 
+        <h1 class="oxidized-text">WIKI</h1> -->
+        <h4 class="copper-text">Добро пожаловать на сайт второго сезона CopperSide!</h4>
+        <p>Здесь ты найдёшь все важные ссылки и информацию</p>
+    </section>
+    <img src="static/images/index-deco/MGS.png" alt="Медный Гуррен Сайд, 1 сезон" class="welcome-img">
+
+    <br>
+    <div class="btn-wrap">
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeI7S5CXPy44b6P_0mmlYG4AvfcdqGAlynBkU-z9R_FpZvG-w/viewform" class="download-link" target="_blank" id="viewform">Подать заявку</a>
+
+</div>
+
+
+    <section id="info">
+        <h2><span class="emoji">📡</span>О проекте</h2>
+        <div class="info-item">
+            <p><b>CopperSide — это небольшой приватный Vanilla+ сервер на версии игры Java 1.21.8</b><p>
+                <h3>Что мы предлагаем?</h3>
+
+                <h4>С геймплейной стороны:</h4>
+                <ul class="offers">
+                    <li>Пиво</li> 
+                    <li>Смена скина в игре, голосовой чат, эмоции</li>
+                    <li>Невидимые рамки и источники света</li>
+                    <li>Обновленная генерация и новые структуры</li>
+                    <li>Кастомизация элитр</li>
+                    <li>Новые рецепты еды</li>
+                    <li>Возможность пропуска ночи</li>
+                    <li>Постоянные обновления и ивенты</li>
+                </ul>
+
+                <h4>С технической:</h4>
+                <ul>
+                    <li>Надёжный хостинг</li>
+                    <li>Привязка к Discord (безопасность + улучшения чата)</li>
+                    <li>Отзывчивая администрация, активно играющая на проекте</li>
+                    <li>Хорошая оптимизация сервера</li>
+                    <li>Продвинутый античит</li>
+                    </li>
+                </ul>
+
+        </div>
+        <div class="info-item">
+            <h3>Веб-карта</h3>
+            <p>Наблюдать за сервером с высоты птичьего полёта можно на нашей <a href="http://188.64.136.10:8080/" target="_blank" class="link">веб-карте</a>.</p>
+            <p>Скрыть себя на ней можно командой <span class="copper-text">/squaremap hide</span></p>
+        </div>
+
+        <div class="info-item">
+            <h3>Ресурспак для игры</h3>
+            <p>Для комфортной игры тебе понадобится встроенный ресурспак, который загружается автоматически при подключении. Однако, если ты хочешь скачать его вручную, сделать это можно тут:</p>
+            <a href="{{ url_for('download_resourcepack') }}" class="download-link">Скачать ресурспак</a>
+        </div>
+
+
+    </section>
+<hr class="splitter">
+
+
+
+
+
+    <section id="join">
+        <h2><span class="emoji">❓</span>Как зайти</h2>
+        <div class="info-item">
+            <h3>Айпи для подключения:</h3>
+            <span id="ip-copy-button" class="copy-text"><b>copperside.online</b></span>
+            <span id="copy-feedback" class="copy-feedback"></span> <!-- Для текста "Скопировано!" -->
+        </div>
+    
+        <div class="info-item">
+            <h3>Версия сервера</h3>
+            <p>Наш сервер работает на Java версии <b>1.21.8</b>. Это гарантия стабильности и отличной игры.</p>
+        </div>
+    </section>
+
+<hr class="splitter">
+
+
+
+
+
+    <section id="rules">
+        <h2><span class="emoji">📜</span> Правила</h2>
+        <p class="rule-intro">
+            Помни, что CopperSide - приватный сервер, место для дружелюбной игры и хорошего времяпрепровождения<br>
+            Давайте вместе сделаем игру приятной для каждого!
+        </p>
+
+        <div class="expand-container">
+            {% for category in rules.categories %}
+                <details class="expand-section">
+                    <summary>{{ category.title }}</summary>
+                    <div class="expand-content">
+                        {% for rule in category.rules %}
+                            <p class="expanded"><b>{{ rule.id }}.</b> {{ rule.text }}</p>
+                        {% endfor %}
+                    </div>
+                </details>
+            {% endfor %}
+        </div>
+    </section>
+
+    <hr class="splitter">
+
+
+
+
+
+
+    <section id="mechanics">
+        <h2><span class="emoji">🎮</span>Механики сервера</h2>
+        <p>Тут ты можешь найти все улучшения нашего игрового мира</p>
+
+
+           <details class="expand-section">
+                <summary>Клиентские моды</summary>
+                <div class="expand-content">
+                    <p>Для комфортной игры на сервере предлагается установить 3 модификации:</p>
+                    <ul>
+                        <li><a href="https://modrinth.com/plugin/plasmo-voice" target="_blank" class="link">PlasmoVoice</a> - позволяет общаться в локальном внутриигровом голосовом чате, создавать группы, слушать кастомную музыку с дисков</li>
+                        <li><a href="https://modrinth.com/plugin/emotecraft" target="_blank" class="link">EmoteCraft</a> - даёт возможность использовать эмоции</li>
+                        <li><a href="https://modrinth.com/mod/skinshuffle" target="_blank" class="link">SkinShuffle</a> - позволяет менять скины не выходя с сервера</li>
+                    </ul>
+                    Или же, если вы пользуетесь лаунчером Modrinth, можете скачать <a href="{{ url_for('download_modpack') }}" class="link">готовый модпак</a> с оптимизацией и необходимыми модами
+                </div>
+            </details>
+
+
+            <details class="expand-section">
+                <summary>Система кланов</summary>
+                <div class="expand-content">
+                    <p><span class="copper-text">Мало кто любит жить один. Игроки объединяются в поселения, играют вместе. </span></p>
+                    <p>Для того, чтобы визуально различать, кто откуда, на сервере присутствует простейшая система кланов</p>
+                    <p>Создаются они администрацией по заявке в Discord</p>
+                    <p>Введя <span class='copper-text'>/clan list</span> вы получите список существующих кланов и их ID</p>
+                    <p><span class='oxidized-text'>Вступить</span> в клан можно только с одобрения лидера</p>
+                    <p>Для того, чтобы <span class='oxidized-text'>получить префикс</span> в чате и табе, нужно ввести команду <span class='copper-text'>/clan join <span class='oxidized-text'>[ID клана]</span></span></p>
+                    <p>Также доступны команды <span class='copper-text'>/clan leave</span> и <span class='copper-text'>/clan info</span></p>
+                </div>
+            </details>
+            
+
+
+
+            <details class="expand-section">
+                <summary>Напитки</summary>
+                <div class="expand-content">
+                    <p>На сервере установлен <span class="copper-text">Brewery</span> - знаменитый плагин на алкоголь, куча <a href="https://vk.com/@apgd2-brewery" class="link" target="_blank">гайдов</a> на него есть в интернете</p>
+                    <p>Но помимо того что плагин сам по себе крут, только у нас добавлено свыше 1000 новых рецептов!! <a href="/brewery" class="link" target="_blank">Некоторые из них валяются тут</a></p>
+                </div>
+            </details>
+
+
+
+            <details class="expand-section">
+                <summary>Украшение элитр</summary>
+                <div class="expand-content">
+                    <p>На сервер добавлена возможность <span class="copper-text">красить</span> элитры и накладывать на них <span class="copper-text">узоры</span> с помощью стола кузнеца!</p>
+                    <img src="/static/images/mechanics/elytra-colors.webp" alt="Цвета элитр">
+                    <img src="/static/images/mechanics/elytra-trims.webp" alt="Шаблоны на элитрах">
+                </div>
+            </details>
+
+
+
+            <details class="expand-section">
+                <summary>Новая еда</summary>
+                <div class="expand-content">
+                    <p>Добавлено более <span class="copper-text">30 видов</span> новой еды</p>
+                    <p>Узнать всё про них можно по <span class="copper-text">внутриигровому гайдбуку</span></p>
+                    <img src="/static/images/mechanics/food-guide.png" alt="Крафт гайдбука">
+                </div>
+            </details>
+
+
+
+            
+            <details class="expand-section">
+                <summary>Крафт блоков света и невидимых рамок</summary>
+                <div class="expand-content" id="lights-craft">
+                <img src="/static/images/mechanics/lights-craft.png" alt="Крафт блоков света">
+                <img src="/static/images/mechanics/lights-stonecutter.png" alt="Блоки света в камнерезе">
+                <img src="/static/images/mechanics/frames-craft.gif" alt="Крафт невидимых рамок">
+                </div>
+            </details>
+            
+
+
+            
+
+
+
+            <details class="expand-section">
+                <summary>Прочее</summary>
+                <div class="expand-content">
+                    <ul>
+                        <li>Доступны команды <span class="copper-text">/sit</span> и <span class="copper-text">/lay</span></li>
+                        <li>Добавлено <span class="copper-text">более 100 </span>новых ачивок (В их числе действительно сложные <span class="copper-text">испытания</span>)</li>
+                        <li>Изменена генерация, добавлены новые структуры</li>
+                    </ul>
+                </div>
+            </details>
+
+    </div>
+    </section>
+
+    <hr class="splitter">
+
+
+
+
+
+
+
+
+    <section id="sponsor">
+        <h2><span class="emoji">💎</span>Sponsor</h2>
+        <h4>Помимо цветного ника, суффикса-звёздочки и уважения со стороны игроков и администрации, по цене в 2 пачки сухариков ты получаешь:</h4>
+
+
+
+           <details class="expand-section">
+                <summary>Возможность создания кастомных музыкальных пластинок</summary>
+                <div class="expand-content">
+                    <p>Для их прослушивания должен быть установлен мод PlasmoVoice</p>
+                    <p>Доступные команды (нужно держать пластинку в руке):</p>
+                    <ul>
+                        <li><span class='copper-text'>/disc burn [ссылка на видео на youtube]</span> - записывает на пластинку звук с видео</li>
+                        <li><span class='copper-text'>/disc search [запрос]</span> - ищет видео на youtube для записи на пластинку</li>
+                        <li><span class='copper-text'>/disc erase</span> - очищает пластинку</li>
+                    </ul>
+                </div>
+            </details>
+
+
+            <details class="expand-section">
+                <summary>Натсройка эффектов вокруг себя</summary>
+                <div class="expand-content">
+                    <p>Введя команду <span class='copper-text'>/pp</span> ты можешь редактировать частицы и их комбинации</p>
+                    <p>Частицы состоят из <span class='oxidized-text'>эффекта</span> (как выглядят частицы) и <span class='oxidized-text'>стиля</span> (какую форму они образуют)</p>
+                    <p>Частицы можно объединять в <span class='oxidized-text'>группы, создавая тем самым много интересных комбинаций из 2+ частиц</span></p>
+                    <p>Нажав <span class='copper-text'>Установить группу</span> ты увидишь несколько предустановленных групп, которые можешь выбрать</p>
+                    <p>В остальном - дело за тобой! Кастомизировать можно очень многое, достаточно лишь фантазии и чуточку терпения</p>
+                </div>
+            </details>
+
+            <details class="expand-section">
+                <summary>Любой предмет в качестве шляпы</summary>
+                <div class="expand-content">
+                    Команда <span class="copper-text">/hat</span> с предметом в руке
+                </div>
+            </details>
+
+            
+            <details class="expand-section">
+                <summary>Дополнительные команды действий</summary>
+                <div class="expand-content">
+                    <ul>
+                        <p><span class='copper-text'>/crawl</span> - красться</p>
+                        <p><span class='copper-text'>/spin</span> - крутиться</p>
+                    </ul>
+                </div>
+            </details>
+
+        <a href="https://www.donationalerts.com/r/COpperSide" class="download-link" target="_blank">Купить Sponsor (100р)</a>
+    </section>
+
+    <hr class="splitter">
+
+
+
+
+
+
+    <section id="contacts">
+        <h2><span class="emoji">📞</span>Контакты</h2>
+
+
+        <div class="contact-container">
+            <h3><span class="emoji">🌎</span>Наше комьюнити<span class="emoji-after">🌎</span></h3>
+            <div class="person-contacts">
+                <p><a href="https://discord.gg/JuNQ8CCqhd" target="_blank" class="link"><b>Discord-сервер</b></a></p>
+                <p><a href="https://t.me/CopperSide322" target="_blank" class="link"><b>Telegram-канал</b></a></p>
+            </div>
+        </div>
+
+        
+        <div class="contact-container">
+            <h3><span class="emoji">💎</span>Главный админ <span class="emoji-after">💎</span></h3>
+            <div class="person-contacts">
+                <p><b>Discord:</b> @oradep</p>
+                <p><b>Telegram: </b><a href="https://t.me/oradep" target="_blank" class="link">@oradep </a></p>
+                <p><b>Почта (ну вдруг кому понадобится):</b> 
+                    <a href="mailto:coppersidemc@gmail.com" class="link">CopperSideMC@gmail.com</a>
+                </p>
+            </div>
+        </div>
+
+        
+
+        <div class="contact-container">
+            <h3><span class="emoji">📝</span>Также можно написать модераторам<span class="emoji-after">📝</span></h3>
+            <div class="person-contacts">
+                <p class="oxidized-text"><b>Sainti</b></p>
+                <p><b>Discord:</b> @segaani</p>
+                <hr class="splitter">
+                <p class="oxidized-text"><b>BaNaNaDzE</b></p>
+                <p><b>Discord:</b> @nikichang</p>
+            </div>
+        </div>
+
+        <div class="contact-container">
+            <h3>И огузку</h3>
+            <div class="person-contacts">
+                <p ><a href="https://vk.com/mark_bogatyrev_vk" target="_blank" class="link">Марк Богатырёв</a></p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

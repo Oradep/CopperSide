@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}CopperSide{% endblock %}</title>
+  <link rel="icon" href="static/images/logotypes/simple-logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="stylesheet" href="static/css/base.css">
+  <script src="static/js/search.js" defer></script>
+  <script src="static/js/buttons.js" defer></script>
+  <script src="static/js/menu.js" defer></script>
+  <script src="static/js/subheadings.js" defer></script>
+  <script src="static/js/buysponsor.js" defer></script>
+</head>
+<body>
+  <!-- Хедер -->
+  <header class="header">
+    <div class="header-left">
+        <a href="/" class="logo-container">
+            <img src="static/images/logotypes/simple-logo.png" alt="Логотип" class="logo">
+            <div class="server-info">
+                <span class="server-name">CopperSide</span>
+            </div>
+        </a>
+        </div>
+    </div>
+    <div class="header-center">
+      <div class="server-info" id="IP">
+        <span class="server-details">
+          <a id="ip-copy-button-header" class="copy-text">copperside.online</a>
+        </span>
+        <span class="server-details">
+          <a href="http://copperside.online:8080/" target="_blank" id="web-map-header">Веб-карта</a>
+        </span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" placeholder="🔍 Поиск..." class="search-input" id="searchInput">
+      </div>
+    </div>
+  </header>
+
+  <!-- Боковое меню (Общее для всех страниц) -->
+  <nav class="sidebar expanded">
+    <ul class="menu"></ul>
+    <div class="sidebar-footer"></div>
+  </nav>
+
+  <!-- Основной контент страницы -->
+  <main class="content">
+    <aside class="subheadings">
+      <ul id="subheading-list"></ul>
+    </aside>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

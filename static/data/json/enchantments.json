@@ -1,0 +1,402 @@
+[
+    {
+        "name": "Accuracy Shot",
+        "items": "Лук/Арбалет",
+        "description": "Стрелы летят прямо.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Agility",
+        "items": "Ботинки",
+        "description": "Увеличивает скорость игрока.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 2
+    },
+    {
+        "name": "Armored",
+        "items": "Элитры",
+        "description": "Снижает получаемый урон при использовании элитр.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": true,
+        "maxLevel": 4
+    },
+    {
+        "name": "Attack Speed",
+        "items": "Меч",
+        "description": "Увеличивает скорость атак.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 5
+    },
+    {
+        "name": "Auto-Feed",
+        "items": "Шлем",
+        "description": "Автоматически кормит вас каждую минуту.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Auto-Smelt",
+        "items": "Инструменты",
+        "description": "Автоматически плавит лут.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Bedrock Breaker",
+        "items": "Кирка",
+        "description": "Позволяет ломать бедрок, но расходует 200 прочности за блок.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": true,
+        "maxLevel": 1
+    },
+    {
+        "name": "Breezing Arrow",
+        "items": "Лук/Арбалет",
+        "description": "Вызывает эффект отталкивания, который подбрасывает цель в воздух. Если стрелы промахиваются, создает эффект отталкивания на земле.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 2
+    },
+    {
+        "name": "Bright Vision",
+        "items": "Шлем",
+        "description": "Дает игроку ночное видение.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Builder Arms",
+        "items": "Нагрудник",
+        "description": "Позволяет устанавливать и ломать блоки с большего расстояния.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": true,
+        "maxLevel": 3
+    },
+    {
+        "name": "Critical",
+        "items": "Меч",
+        "description": "Вероятность нанести истинный урон, пробивающий броню.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 3
+    },
+    {
+        "name": "Curse Of Breaking",
+        "items": "Прочность",
+        "description": "Противоположно Unbreaking, это зачарование быстрее изнашивает ваш инструмент и снижает его прочность.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 5
+    },
+    {
+        "name": "Curse OF Enchant",
+        "items": "Прочность",
+        "description": "Это зачарование нельзя наложить или снять.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Death Touch",
+        "items": "Меч",
+        "description": "Наложение эффекта темноты на врагов.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Dimensional Hit",
+        "items": "Меч",
+        "description": "Увеличивает урон, наносимый в измерениях, отличных от обычного мира.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 5
+    },
+    {
+        "name": "Dwarfed",
+        "items": "Поножи",
+        "description": "Уменьшает размер сущности.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 4
+    },
+    {
+        "name": "Eternal Frost",
+        "items": "Лук/Арбалет",
+        "description": "Стреляет стрелой, замораживая воду вокруг и замедляя цель, в которую попала стрела.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 2
+    },
+    {
+        "name": "Fast Swim",
+        "items": "Поножи",
+        "description": "Дает игроку эффект дельфиньей грации.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": true,
+        "maxLevel": 1
+    },
+    {
+        "name": "Fear",
+        "items": "Меч",
+        "description": "При ударе крипера увеличивает задержку его взрыва на 12.5 секунд.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Fury",
+        "items": "Броня",
+        "description": "Уменьшает броню в процентах и обеспечивает пробивание брони, а также увеличивает процент урона при ударах.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 4
+    },
+    {
+        "name": "Gungnir Spear",
+        "items": "Трезубец",
+        "description": "Как Eternal Frost, замораживает воду и замедляет цель, в которую попала стрела.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Kinectic Protection",
+        "items": "Элитры",
+        "description": "Снижает урон при столкновении с поверхностью во время парения.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": true,
+        "maxLevel": 4
+    },
+    {
+        "name": "Last Hope",
+        "items": "Меч",
+        "description": "Жертвует оружием для нанесения огромного урона.",
+        "randomDrop": false,
+        "trade": true,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Leaping",
+        "items": "Поножи",
+        "description": "Увеличивает силу прыжка игрока.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 2
+    },
+    {
+        "name": "Life Steal",
+        "items": "Меч",
+        "description": "Похищает здоровье у цели и передает его игроку.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 3
+    },
+    {
+        "name": "Life+",
+        "items": "Броня",
+        "description": "Дает игроку дополнительные сердца.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 5
+    },
+    {
+        "name": "Oversize",
+        "items": "Поножи",
+        "description": "Увеличивает размер сущности.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 4
+    },
+    {
+        "name": "Poison Aspect",
+        "items": "Меч",
+        "description": "Отравляет при ударе.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 4
+    },
+    {
+        "name": "Reach",
+        "items": "Меч",
+        "description": "Увеличивает дальность атаки.",
+        "randomDrop": false,
+        "trade": true,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 3
+    },
+    {
+        "name": "Rebound",
+        "items": "Лук/Арбалет",
+        "description": "Стрела будет отскакивать от стены и от земли несколько раз.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 3
+    },
+    {
+        "name": "StepAssist",
+        "items": "Ботинки",
+        "description": "Помогает подниматься на блоки без прыжка",
+        "randomDrop": false,
+        "trade": true,
+        "enchantingTable": false,
+        "fishing": true,
+        "maxLevel": 1
+    },
+    {
+        "name": "Striker",
+        "items": "Булава",
+        "description": "Имеет небольшую вероятность вызвать молнию; если погода штормовая, молния поражает моба при каждом ударе и действует на молниеотводы. Также вы невосприимчивы к урону от молний.",
+        "randomDrop": false,
+        "trade": true,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 2
+    },
+    {
+        "name": "Tears of Asflors",
+        "items": "Меч",
+        "description": "Преобразует опыт игрока в дополнительный урон.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 4
+    },
+    {
+        "name": "Teluric Wave",
+        "items": "Булава",
+        "description": "Создает волну вокруг вашего удара и отбрасывает всех ближайших мобов.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Timber",
+        "items": "Топор",
+        "description": "Срубает дерево одним ударом.",
+        "randomDrop": true,
+        "trade": true,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "VeinMiner",
+        "items": "Кирка",
+        "description": "При добыче руды ломатеся вся залежа",
+        "randomDrop": false,
+        "trade": true,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Venom Protection",
+        "items": "Броня",
+        "description": "Обеспечивает защиту от негативных эффектов.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": true,
+        "maxLevel": 1
+    },
+    {
+        "name": "Voidless",
+        "items": "Шлем",
+        "description": "При падении в пустоту энда кратковременно даёт эффект левитации.",
+        "randomDrop": false,
+        "trade": false,
+        "enchantingTable": false,
+        "fishing": false,
+        "maxLevel": 1
+    },
+    {
+        "name": "Wind Propulsion",
+        "items": "Булава",
+        "description": "Удар по земле вызывает взрыв, подкидывающий игрока в воздух",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 2
+    },
+    {
+        "name": "XpBoost",
+        "items": "Меч/Инструменты",
+        "description": "Получаете дополнительный опыт за убийство мобов или добычу блоков.",
+        "randomDrop": true,
+        "trade": false,
+        "enchantingTable": true,
+        "fishing": false,
+        "maxLevel": 3
+    }
+]

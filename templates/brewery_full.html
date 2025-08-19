@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}CopperSide{% endblock %}
+
+{% block content %}
+<style>
+  /* Центрируем основной контейнер и задаём приятные отступы */
+  .content {
+    max-width: 800px;
+    margin: 27px auto;
+    padding: 20px;
+    text-align: left; /* Общий текст влево */
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    text-align: center; /* Заголовок по центру */
+    /* Если хочешь цвет, раскомментируй:
+    color: #f39c12; 
+    */
+  }
+
+  /* Оформление каждого "рецепта" в виде аккордеона (details) */
+  .expand-section {
+    margin-bottom: 20px;
+    background-color: #2b2b2b;
+    border: 1px solid #3a3a3a;
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+  }
+
+  /* Стиль заголовка (summary) внутри details */
+  .expand-section summary {
+    display: list-item;
+    list-style: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 10px;
+    margin: -5px;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+  }
+
+  /* Убираем дефолтный маркер у summary и добавляем свой */
+  .expand-section summary::-webkit-details-marker {
+    display: none;
+  }
+  .expand-section summary::marker {
+    content: none;
+  }
+  .expand-section summary::before {
+    content: "▶ ";
+    color: #ccc;
+    margin-right: 5px;
+  }
+  .expand-section[open] summary::before {
+    content: "▼ ";
+  }
+
+  /* Содержимое блока при раскрытии */
+  .expand-content {
+    background-color: #2b2b2b;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #3a3a3a;
+    margin-top: 10px;
+  }
+  .expand-content h3 {
+    margin-top: 0;
+    color: #fff;
+  }
+  .expand-content ul {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  .expand-content p {
+    margin: 5px 0;
+  }
+</style>
+
+<div class="content">
+  <h1>Полный список рецептов Brewery</h1>
+  <div id="recipes-container"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<script>
+  // Функция для выбора правильного окончания для "год"
+  function getYearWord(years) {
+    years = Math.abs(years);
+    const mod10 = years % 10;
+    const mod100 = years % 100;
+    if (mod10 === 1 && mod100 !== 11) return "год";
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return "года";
+    return "лет";
+  }
+
+  // Функция для удаления цветовых кодов Minecraft (например, &l, &6, &k, &4 и т.п.)
+  function removeMinecraftCodes(text) {
+    return text.replace(/&[0-9a-zA-Z]/g, '');
+  }
+
+  // Маппинг ингредиентов для локализации
+  const ingredientNames = {
+    "Wheat": 'Пшеница',
+    "Sweet_Berries": "Сладкие ягоды",
+    "Sugar_Cane": "Сахарный тростник",
+    "Apple": "Яблоко",
+    "Sugar": "Сахар",
+    "Potato": "Картофель",
+    "Red_Mushroom": "Красный гриб",
+    "Brown_Mushroom": "Коричневый гриб",
+    "Blue_orchid": "Синяя орхидея",
+    "Cactus": "Кактус",
+    "Grass": "Трава",
+    "Poisonous_Potato": "Ядовитый картофель",
+    "Cocoa_Beans": "Какао-бобы",
+    "Milk_Bucket": "Ведро молока",
+    "Egg": "Яйцо",
+    "Gold_Nugget": "Золотой самородок",
+    "Cookie": "Печенье",
+    "Blaze_Powder": "Огненный порошок",
+    "Snowball": "Снежок",
+    "Glow_Berries": "Светящиеся ягоды",
+    "Rotten Flesh": "Гнилая плоть",
+    "Bread": "Хлеб",
+  };
+
+  // Маппинг типов древесины
+  const woodTypes = {
+    0: "Любая",
+    1: "Береза",
+    2: "Дуб",
+    3: "Тропическое",
+    4: "Ель",
+    5: "Акация",
+    6: "Темный дуб",
+    7: "Багровое",
+    8: "Искаженное",
+    9: "Мангровое",
+    10: "Вишневое",
+    11: "Бамбуковое",
+    12: "Резная Медь"
+  };
+
+  fetch('static/data/recipes_full.yml')
+    .then(response => response.text())
+    .then(text => {
+      const data = jsyaml.load(text);
+      const recipesContainer = document.getElementById('recipes-container');
+
+      for (let key in data.recipes) {
+        if (key === 'ex') continue;
+        const recipe = data.recipes[key];
+        if (recipe.enabled === false) continue;
+
+        // Обработка названия рецепта: удаляем Minecraft-коды и выбираем центральную часть, если присутствует "/"
+        let displayName = recipe.name || "";
+        displayName = removeMinecraftCodes(displayName);
+        if (displayName.includes('/')) {
+          const parts = displayName.split('/');
+          displayName = parts[Math.floor(parts.length / 2)];
+        }
+
+        // Формируем список ингредиентов, если они заданы
+        let ingredientsHTML = '';
+        if (recipe.ingredients && recipe.ingredients.length) {
+          ingredientsHTML += '<h3>Ингредиенты:</h3><ul>';
+          recipe.ingredients.forEach(item => {
+            const [id, amount] = item.split('/');
+            const translated = ingredientNames[id] || id;
+            ingredientsHTML += `<li>${translated} — ${amount}</li>`;
+          });
+          ingredientsHTML += '</ul>';
+        }
+
+        const cookingTime = recipe.cookingtime;
+        const distillRuns = recipe.distillruns;
+        const woodType = recipe.wood !== undefined ? (woodTypes[recipe.wood] || recipe.wood) : undefined;
+        const age = recipe.age;
+
+        // Формируем контент для раскрывающейся секции, выводим только заданные поля
+        let detailsContent = ingredientsHTML;
+        if (cookingTime !== undefined) {
+          detailsContent += `<p><strong>Время приготовления:</strong> ${cookingTime} мин.</p>`;
+        }
+        if (distillRuns !== undefined) {
+          detailsContent += `<p><strong>Дистилляций:</strong> ${distillRuns}</p>`;
+        }
+        if (woodType !== undefined) {
+          detailsContent += `<p><strong>Бочка:</strong> ${woodType}</p>`;
+        }
+        if (age !== undefined) {
+          detailsContent += `<p><strong>Настой:</strong> ${age} ${getYearWord(age)}</p>`;
+        }
+
+        const recipeHTML = `
+          <details class="expand-section">
+            <summary>${displayName}</summary>
+            <div class="expand-content">
+              ${detailsContent}
+            </div>
+          </details>
+        `;
+        recipesContainer.insertAdjacentHTML('beforeend', recipeHTML);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById('recipes-container').innerHTML = '<p>Ошибка загрузки рецептов</p>';
+    });
+</script>
+{% endblock %}

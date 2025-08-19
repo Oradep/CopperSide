@@ -1,0 +1,354 @@
+/* Общие настройки */
+html {
+    scroll-padding-top: 100px; /* Отступ для якорей, соответствует высоте хедера */
+  }
+  
+  /* Анимация появления */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Подключение шрифтов */
+  @font-face {
+    font-family: 'Nunito';
+    src: url('/static/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'JosefinSans';
+    src: url('/static/fonts/JosefinSans-VariableFont_wght.ttf') format('truetype');
+  }
+  
+
+  .sidebar{
+    display: none;
+}
+.subheadings{
+    display: none;
+}
+
+
+
+
+  /* Основные стили */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: white;
+  }
+  
+  img {
+    border-radius: 15px;
+    height: auto;
+    max-width: 100%;
+  }
+  
+  /* Утилитарные классы */
+  .emoji {
+    margin-right: 20px;
+  }
+  .emoji-after {
+    margin-left: 20px;
+  }
+  .link {
+    color: var(--oxidized);
+  }
+  .link:hover {
+    color: var(--oxidized-hover);
+  }
+  .copper-text {
+    color: var(--copper);
+  }
+  .oxidized-text {
+    color: var(--oxidized);
+  }
+  
+  /* Кнопка скачивания */
+  .download-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #317873, #62a89f);
+    background-size: 200% 200%;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: background-position 0.5s ease, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .download-link:hover {
+    background-position: right bottom;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  .download-link:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+.btn-wrap {
+  display: flex;
+  justify-content: center; /* горизонтально по центру */
+}
+#viewform{
+      font-size: 30px;
+      padding: 10px 20px;
+}
+
+
+ 
+  /* Основной контент */
+  .content {
+    margin: 70px 300px 0;
+    padding: 20px;
+  }
+  
+  h1 {
+    padding: 3px;
+    line-height: 50px;
+    font-size: 3.5em;
+    margin: 0;
+    text-align: center;
+    color: var(--copper);
+  }
+  
+  h2 {
+    font-size: 40px;
+    margin: 10px 0 0 10px;
+    color: var(--copper);
+  }
+  
+  h3 {
+    font-size: 20px;
+    color: var(--copper);
+  }
+  
+
+
+
+
+
+
+
+
+  /* Секция welcome */
+  section#welcome {
+    padding-top: 10px;
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .welcome-img {
+    display: flex;
+    margin: auto;
+    height: 300px;
+    border-radius: 8px;
+  }
+  section#welcome h4 {
+    margin: 0;
+    font-size: 2.5em;
+  }
+  
+
+
+
+
+
+  /* Секция информации */
+  section#info {
+    text-align: left;
+  }
+  section#info b {
+    font-size: 20px;
+    color: var(--oxidized);
+  }
+  
+
+
+
+
+
+
+  /* Стили для элементов копирования */
+  .copy-text {
+    cursor: pointer;
+    color: var(--oxidized);
+    text-decoration: underline;
+    background-color: #2b2b2b;
+    border: 1px solid #ffffff33;
+    border-radius: 4px;
+    padding: 6px;
+  }
+  .copy-text:hover {
+    color: var(--oxidized-hover);
+  }
+  .copy-feedback {
+    margin-left: 10px;
+    font-style: italic;
+    color: var(--oxidized);
+    display: none;
+  }
+
+
+
+
+
+
+
+
+  
+  /* Расширяемые блоки */
+  .expand-section {
+    background: #333;
+    border-radius: 5px;
+    margin: 8px 0;
+    padding: 10px;
+    transition: background 0.3s;
+  }
+  .expand-section summary {
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    background: #444;
+    transition: background 0.3s;
+  }
+  .expand-section[open] summary {
+    background: #555;
+  }
+  .expand-section:not([open]):hover {
+    background: #292929;
+    transform: scale(1.02);
+  }
+  .expand-content {
+    padding: 10px;
+    background: #222;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  .expand-content img {
+    border-radius: 15px;
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Контейнер для расширяемых блоков (например, для правил) */
+  .expand-container {
+    background: #242424;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px auto;
+  }
+
+
+
+
+
+
+  #lights-craft img{
+    margin-bottom: 10px; /* отступ между картинками, по желанию */
+  }
+
+  
+
+
+  
+
+
+
+
+section#contacts{
+    text-align: center;
+}
+section#contacts h2{
+    text-align: center;
+}
+.contact-container {
+    background: #2b2b2b;
+    padding: 20px;
+    padding-top: 3px;
+    margin: 10px;
+    border-radius: 8px;
+    max-width: 0 auto;
+}
+
+.person-contacts{
+    border-radius: 8px;
+    background: #222;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.contact-container p{
+    line-height: 7px;
+}
+
+section#contacts h3{
+    font-size: 20px;
+    margin: 10px;
+    margin-top: 10px;
+}
+
+.contact-container .emoji{
+    vertical-align: 2px;
+}
+
+
+
+
+  /* Оформление каждого "рецепта" в виде аккордеона (details) */
+  .expand-section {
+    margin-bottom: 20px;
+    background-color: #2b2b2b;
+    border: 1px solid #3a3a3a;
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+  }
+
+  /* Стиль заголовка (summary) внутри details */
+  .expand-section summary {
+    display: list-item;
+    list-style: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 10px;
+    margin: -5px;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+  }
+
+  /* Убираем дефолтный маркер у summary и добавляем свой */
+  .expand-section summary::-webkit-details-marker {
+    display: none;
+  }
+  .expand-section summary::marker {
+    content: none;
+  }
+  .expand-section summary::before {
+    content: "▶ ";
+    color: #ccc;
+    margin-right: 5px;
+  }
+  .expand-section[open] summary::before {
+    content: "▼ ";
+  }
+
+  /* Содержимое блока при раскрытии */
+  .expand-content {
+    background-color: #2b2b2b;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #3a3a3a;
+    margin-top: 10px;
+  }
+  .expand-content h3 {
+    margin-top: 0;
+    color: #fff;
+  }

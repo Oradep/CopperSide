@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="static/images/logotypes/simple-logo.png" type="image/x-icon">
+  <title>Редактор зачарований</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: white;
+      font-family: 'Nunito', Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .content {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #2b2b2b;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #444;
+      text-align: left;
+    }
+    th {
+      background: #317873;
+      cursor: pointer;
+      user-select: none;
+    }
+    th:hover {
+      background: #62a89f;
+    }
+    .th-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sort-icon {
+      transition: transform 0.3s;
+      margin-left: 8px;
+    }
+    input[type="text"], input[type="number"], textarea {
+      width: 100%;
+      padding: 5px;
+      border: none;
+      border-radius: 4px;
+      background: #444;
+      color: white;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.2);
+    }
+    .action-btn {
+      background: #ff4d4d;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .add-btn, .save-btn {
+      background: #317873;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      padding: 10px 15px;
+      margin: 10px 5px;
+      cursor: pointer;
+    }
+    .add-btn:hover, .save-btn:hover {
+      background: #62a89f;
+    }
+    #save-indicator {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: #4CAF50;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+    /* Настройка ширины столбцов */
+    th:nth-child(1), td:nth-child(1) { width: 15%; }
+    th:nth-child(2), td:nth-child(2) { width: 10%; }
+    th:nth-child(3), td:nth-child(3) { width: 40%; }
+    th:nth-child(4), td:nth-child(4) { width: 5%; text-align: center; font-size: 0.8em; }
+    th:nth-child(5), td:nth-child(5) { width: 5%; text-align: center; font-size: 0.8em; }
+    th:nth-child(6), td:nth-child(6) { width: 5%; text-align: center; font-size: 0.8em; }
+    th:nth-child(7), td:nth-child(7) { width: 5%; text-align: center; font-size: 0.8em; }
+    th:nth-child(8), td:nth-child(8) { width: 10%; text-align: center; }
+    th:nth-child(9), td:nth-child(9) { width: 5%; text-align: center; } /* Колонка "Действия" */
+  </style>
+</head>
+<body>
+  <h1>Редактор зачарований</h1>
+  <div class="content">
+    <table id="editorTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0, this)">
+            <div class="th-content">
+              Название <span class="sort-icon">▼</span>
+            </div>
+          </th>
+          <th onclick="sortTable(1, this)">
+            <div class="th-content">
+              Предметы <span class="sort-icon">▼</span>
+            </div>
+          </th>
+          <th onclick="sortTable(2, this)">
+            <div class="th-content">
+              Описание <span class="sort-icon">▼</span>
+            </div>
+          </th>
+          <th onclick="sortTable(3, this)">
+            <div class="th-content">
+              Случайная добыча <span class="sort-icon">▼</span>
+            </div>
+          </th>
+          <th onclick="sortTable(4, this)">
+            <div class="th-content">
+              Торговля <span class="sort-icon">▼</span>
+            </div>
+          </th>
+          <th onclick="sortTable(5, this)">
+            <div class="th-content">
+              В столе зачарований <span class="sort-icon">▼</span>
+            </div>
+          </th>
+          <th onclick="sortTable(6, this)">
+            <div class="th-content">
+              Рыбалка <span class="sort-icon">▼</span>
+            </div>
+          </th>
+          <th onclick="sortTable(7, this)">
+            <div class="th-content">
+              Макс. уровень <span class="sort-icon">▼</span>
+            </div>
+          </th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Строки будут добавляться динамически -->
+      </tbody>
+    </table>
+  </div>
+  <div style="text-align:center;">
+    <button class="add-btn" onclick="addRow()">➕ Добавить запись</button>
+    <button class="save-btn" onclick="saveData()">Сохранить</button>
+  </div>
+  <div id="save-indicator">Сохранено ✅</div>
+
+  <script>
+    // Функция debounce для откладывания вызова автосейва
+    function debounce(func, wait) {
+      let timeout;
+      return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func.apply(this, args);
+        }, wait);
+      };
+    }
+
+    let enchantments = [];
+
+    // Отображение соответствия между индексом столбца и полем объекта
+    const fieldMapping = {
+      0: 'name',
+      1: 'items',
+      2: 'description',
+      3: 'randomDrop',
+      4: 'trade',
+      5: 'enchantingTable',
+      6: 'fishing',
+      7: 'maxLevel'
+    };
+
+    // Загрузка данных с сервера или использование образцов
+    async function loadData() {
+      try {
+        const response = await fetch('/static/data/json/enchantments.json');
+        if (response.ok) {
+          enchantments = await response.json();
+        } else {
+          console.error('Ошибка загрузки данных, используются образцы.');
+          loadSampleData();
+        }
+      } catch (error) {
+        console.error('Ошибка загрузки данных:', error);
+        loadSampleData();
+      }
+      renderTable();
+    }
+
+    function loadSampleData() {
+      enchantments = [
+        { name: 'Accuracy Shot', items: 'Лук/Арбалет', description: 'Стрелы летят прямо.', randomDrop: true, trade: true, enchantingTable: true, fishing: false, maxLevel: 3 },
+        { name: 'Agility', items: 'Ботинки', description: 'Увеличивает скорость игрока.', randomDrop: true, trade: false, enchantingTable: true, fishing: false, maxLevel: 5 },
+        { name: 'Armored', items: 'Элитры', description: 'Уменьшает урон при использовании элитр.', randomDrop: false, trade: false, enchantingTable: false, fishing: false, maxLevel: 4 }
+      ];
+    }
+
+    // Отрисовка таблицы
+    function renderTable() {
+      const tbody = document.querySelector('#editorTable tbody');
+      tbody.innerHTML = '';
+      enchantments.forEach((ench, index) => {
+        const row = document.createElement('tr');
+        row.dataset.index = index;
+        row.innerHTML = `
+          <td><input type="text" value="${ench.name}" onchange="updateEnchantment(${index}, 'name', this.value)"></td>
+          <td><input type="text" value="${ench.items}" onchange="updateEnchantment(${index}, 'items', this.value)"></td>
+          <td><textarea rows="2" onchange="updateEnchantment(${index}, 'description', this.value)">${ench.description}</textarea></td>
+          <td style="text-align: center;">
+            <input type="checkbox" ${ench.randomDrop ? 'checked' : ''} onchange="updateEnchantment(${index}, 'randomDrop', this.checked)">
+          </td>
+          <td style="text-align: center;">
+            <input type="checkbox" ${ench.trade ? 'checked' : ''} onchange="updateEnchantment(${index}, 'trade', this.checked)">
+          </td>
+          <td style="text-align: center;">
+            <input type="checkbox" ${ench.enchantingTable ? 'checked' : ''} onchange="updateEnchantment(${index}, 'enchantingTable', this.checked)">
+          </td>
+          <td style="text-align: center;">
+            <input type="checkbox" ${ench.fishing ? 'checked' : ''} onchange="updateEnchantment(${index}, 'fishing', this.checked)">
+          </td>
+          <td>
+            <input type="number" value="${ench.maxLevel}" min="1" onchange="updateEnchantment(${index}, 'maxLevel', this.value)">
+          </td>
+          <td>
+            <button class="action-btn" onclick="deleteRow(${index})">❌</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Обновление значения в объекте enchantments
+    function updateEnchantment(index, field, value) {
+      if (field === 'maxLevel') {
+        enchantments[index][field] = parseInt(value);
+      } else {
+        enchantments[index][field] = value;
+      }
+    }
+
+    // Добавление новой записи
+    function addRow() {
+      enchantments.push({
+        name: 'Новое зачарование',
+        items: '',
+        description: '',
+        randomDrop: false,
+        trade: false,
+        enchantingTable: false,
+        fishing: false,
+        maxLevel: 1
+      });
+      renderTable();
+    }
+
+    // Удаление записи
+    function deleteRow(index) {
+      if (confirm('Удалить эту запись?')) {
+        enchantments.splice(index, 1);
+        renderTable();
+      }
+    }
+
+    // Сохранение данных на сервере
+    async function saveData() {
+      try {
+        const response = await fetch('/save_enchants', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(enchantments)
+        });
+        if (response.ok) {
+          const indicator = document.getElementById('save-indicator');
+          indicator.style.display = 'block';
+          setTimeout(() => indicator.style.display = 'none', 2000);
+        } else {
+          console.error('Ошибка сохранения данных:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Ошибка при сохранении данных:', error);
+      }
+    }
+
+    // Сортировка таблицы по клику на заголовок
+    function sortTable(n, th) {
+      let dir = th.dataset.order === 'asc' ? 'desc' : 'asc';
+      th.dataset.order = dir;
+      document.querySelectorAll(".sort-icon").forEach(icon => icon.textContent = "▼");
+      th.querySelector(".sort-icon").textContent = dir === "asc" ? "▼" : "▲";
+      
+      const field = fieldMapping[n];
+      enchantments.sort((a, b) => {
+        let x = a[field];
+        let y = b[field];
+        if (typeof x === 'boolean' && typeof y === 'boolean') {
+          x = x ? 1 : 0;
+          y = y ? 1 : 0;
+        }
+        if (field === 'maxLevel') {
+          x = parseInt(x);
+          y = parseInt(y);
+        }
+        if (typeof x === 'string' && typeof y === 'string') {
+          return dir === "asc" ? x.localeCompare(y) : y.localeCompare(x);
+        }
+        return dir === "asc" ? x - y : y - x;
+      });
+      renderTable();
+    }
+
+    // Инициализация загрузки данных при загрузке страницы
+    document.addEventListener('DOMContentLoaded', loadData);
+
+    // Создаем дебаунс-версию функции saveData для автосейва (500 мс)
+    const autoSaveDebounced = debounce(saveData, 500);
+
+    // Автосохранение при потере фокуса (blur) от любого input, textarea или select
+    document.addEventListener('blur', function(e) {
+      if (e.target.matches('input, textarea, select')) {
+        autoSaveDebounced();
+      }
+    }, true);
+
+    // Также автосохранение при событии change
+    document.addEventListener('change', function(e) {
+      if (e.target.matches('input, textarea, select')) {
+        autoSaveDebounced();
+      }
+    });
+  </script>
+</body>
+</html>

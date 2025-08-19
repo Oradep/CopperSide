@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% block title %}Зачарования{% endblock %}
+
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Таблица зачарований</title>
+  <link rel="stylesheet" href="/static/css/menu.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <style>
+    /* Глобальное правило для корректного расчёта размеров */
+    h2 {
+      text-align: center;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: white;
+    }
+    .content {
+    max-width: 100vw;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    /* Обертка для таблицы, чтобы избежать горизонтального скролла по всему окну */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      max-width: 100%;
+      /* Убедитесь, что здесь не стоит overflow-y, которое может мешать работе sticky */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #2b2b2b;
+      border-radius: 10px;
+      margin-right: 20px;
+      max-width: 100%;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #444;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    th {
+      cursor: pointer;
+      user-select: none;
+    }
+    th:hover {
+      background: #62a89f;
+    }
+    .th-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sort-icon {
+      transition: transform 0.3s;
+      margin-left: 8px;
+    }
+    /* Закрепление заголовка таблицы */
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #317873;
+    }
+    /* Настройка ширины столбцов */
+    th:nth-child(1), td:nth-child(1) { width: 15%; }
+    th:nth-child(2), td:nth-child(2) { width: 10%; }
+    th:nth-child(3), td:nth-child(3) { width: 40%; }
+    th:nth-child(4), td:nth-child(4) { width: 5%; text-align: center; font-size: 0.8em; }
+    th:nth-child(5), td:nth-child(5) { width: 5%; text-align: center; font-size: 0.8em; }
+    th:nth-child(6), td:nth-child(6) { width: 5%; text-align: center; font-size: 0.8em; }
+    th:nth-child(7), td:nth-child(7) { width: 5%; text-align: center; font-size: 0.8em; }
+    th:nth-child(8), td:nth-child(8) { width: 10%; text-align: center; }
+
+    .sidebar{
+        display: none;
+    }
+    .subheadings{
+        display: none;
+    }
+  </style>
+</head>
+
+
+
+
+
+
+
+<body>
+  <div class="content">
+    <br>
+    <br>
+    <h2>Таблица зачарований</h2>
+    <p><b>Название</b> - Новые зачарования</p>
+    <p><b>Предметы</b> - Тип предмета, на который можно наложить зачарование (например, броня, меч и т. д.).</p>
+    <p><b>Описание</b> - Описание эффекта зачарования.</p>
+    <p><b>Случайная добыча</b> - Если отмечено, зачарование можно найти в случайной добыче (сундуки в структурах, вещи у мобов и в других местах игры).</p>
+    <p><b>Торговля</b> - Если отмечено, зачарование можно купить у библиотекаря.</p>
+    <p><b>В столе зачарований</b> - Если отмечено, зачарование можно получить через стол зачарований.</p>
+    <p><b>Рыбалка</b> - Если отмечено, зачарование можно выловить</p>
+    <p><b>Максимальный уровень</b> - Максимальный уровень, до которого можно улучшить зачарование.</p>
+
+    <div class="table-container">
+      <table id="enchantTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0, this)">
+              <div class="th-content">
+                Название <span class="sort-icon">▼</span>
+              </div>
+            </th>
+            <th onclick="sortTable(1, this)">
+              <div class="th-content">
+                Предметы <span class="sort-icon">▼</span>
+              </div>
+            </th>
+            <th onclick="sortTable(2, this)">
+              <div class="th-content">
+                Описание <span class="sort-icon">▼</span>
+              </div>
+            </th>
+            <th onclick="sortTable(3, this)">
+              <div class="th-content">
+                Случайная добыча <span class="sort-icon">▼</span>
+              </div>
+            </th>
+            <th onclick="sortTable(4, this)">
+              <div class="th-content">
+                Торговля <span class="sort-icon">▼</span>
+              </div>
+            </th>
+            <th onclick="sortTable(5, this)">
+              <div class="th-content">
+                В столе зачарований <span class="sort-icon">▼</span>
+              </div>
+            </th>
+            <th onclick="sortTable(6, this)">
+              <div class="th-content">
+                Рыбалка <span class="sort-icon">▼</span>
+              </div>
+            </th>
+            <th onclick="sortTable(7, this)">
+              <div class="th-content">
+                Макс. уровень <span class="sort-icon">▼</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Данные будут подставлены скриптом -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    // Функция сортировки таблицы
+    function sortTable(n, th) {
+      const table = document.getElementById("enchantTable");
+      const tbody = table.tBodies[0];
+      const rows = Array.from(tbody.rows);
+      let dir;
+      
+      // Если для столбца не задано направление – сразу устанавливаем "desc"
+      if (!th.dataset.order) {
+        dir = "desc";
+      } else {
+        dir = th.dataset.order === "asc" ? "desc" : "asc";
+      }
+      th.dataset.order = dir;
+      
+      // Сброс иконок у всех столбцов и установка для текущего
+      document.querySelectorAll(".sort-icon").forEach(icon => icon.textContent = "▼");
+      th.querySelector(".sort-icon").textContent = dir === "asc" ? "▼" : "▲";
+      
+      // Сортировка строк таблицы
+      rows.sort((rowA, rowB) => {
+        const x = rowA.cells[n].innerText.toLowerCase();
+        const y = rowB.cells[n].innerText.toLowerCase();
+        return dir === "asc" ? x.localeCompare(y) : y.localeCompare(x);
+      });
+      
+      rows.forEach(row => tbody.appendChild(row));
+    }
+
+    // Загрузка данных о зачарованиях из JSON-файла
+    async function loadData() {
+      try {
+        const response = await fetch('/static/data/json/enchantments.json');
+        if (!response.ok) {
+          throw new Error('Ошибка загрузки данных');
+        }
+        const data = await response.json();
+        populateTable(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    // Функция заполнения таблицы данными
+    function populateTable(data) {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+      data.forEach(ench => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${ench.name}</td>
+          <td>${ench.items}</td>
+          <td>${ench.description}</td>
+          <td>${ench.randomDrop ? '✅' : '❌'}</td>
+          <td>${ench.trade ? '✅' : '❌'}</td>
+          <td>${ench.enchantingTable ? '✅' : '❌'}</td>
+          <td>${ench.fishing ? '✅' : '❌'}</td>
+          <td>${ench.maxLevel}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>
+{% endblock %}

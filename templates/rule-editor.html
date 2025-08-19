@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор правил</title>
+    <link rel="stylesheet" href="/static/css/editor.css">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+    <h1>Редактор правил</h1>
+
+    <div id="rules-container">
+        {% for category in rules.categories %}
+        <div class="category" data-index="{{ loop.index0 }}">
+            <div class="category-header">
+                <span class="drag-handle">🟰</span>
+                <textarea class="category-title" onkeydown="handleEnter(event)">{{ category.title }}</textarea>
+                <button onclick="deleteCategory(this)">❌</button>
+            </div>
+            <ul class="rules-list" data-category="{{ loop.index0 }}">
+                {% for rule in category.rules %}
+                <li class="rule-item">
+                    <span class="drag-handle">🟰</span>
+                    <span class="rule-id">{{ rule.id }}</span>
+                    <textarea class="rule-text" onkeydown="handleEnter(event)">{{ rule.text }}</textarea>
+                    <button onclick="deleteRule(this)">❌</button>
+                </li>
+                {% endfor %}
+            </ul>
+            <button onclick="addRule(this)">➕ Добавить правило</button>
+        </div>        
+        {% endfor %}
+    </div>
+
+    <button onclick="addCategory()">➕ Добавить категорию</button>
+
+    <div id="save-indicator" class="hidden">✅</div>
+
+    <script src="static/js/editor.js" defer></script>
+</body>
+</html>
